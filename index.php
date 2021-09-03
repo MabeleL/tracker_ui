@@ -7,7 +7,21 @@ if($login->is_loggedin()!=''){
   $login->redirect('home.php');
 }
 
+if(isset($_POST['btn-login']))
 
+{
+  $uname = strip_tags($_POST['txt_uname_email']);
+  $umail = strip_tags($_POST['txt_uname_email']);
+  $upass = strip_tags($_POST['txt_password']);
+
+  if (login->doLogin($uname, umail, upass))
+  {
+    $login->redirect('home.php');
+  }
+  else{
+    $error = "<b><font color='red'> Wrong Login Details!</font></b>"
+  }
+}
 
  ?>
 <!DOCTYPE html>
@@ -20,7 +34,7 @@ if($login->is_loggedin()!=''){
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="style.css" />
-    <title>Livestock Tracker Login</title>
+    <title>Login Interface</title>
   </head>
   <body>
     <div class="container">
@@ -28,15 +42,23 @@ if($login->is_loggedin()!=''){
         <div class="signin-signup">
           <form action="#" class="sign-in-form">
             <h2 class="title">Sign in</h2>
+            <?php
+                if(isset(error)){
+                  ?>
+                  <i class="glyphicon glyphicon-warning-sign"></i>&nbsp; <?php echo $error; ?>!
+                  <?php
+                }
+             ?>
+
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" required/>
+              <input type="text" name="txt_uname_email" placeholder="Username or email" required/>
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" name="txt_password" laceholder="Password" />
             </div>
-            <input type="submit" value="Login" class="btn solid" />
+            <input type="submit" value="Login" name="btn-login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
