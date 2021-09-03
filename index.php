@@ -1,9 +1,9 @@
 <?php
+require_once("class_user.php");
 session_start();
-require_once("class.user.php");
 $login = new USER();
 
-if($login->is_loggedin()!=''){
+if($login->is_loggedin()!=""){
   $login->redirect('home.php');
 }
 
@@ -14,7 +14,7 @@ if(isset($_POST['btn-login']))
   $umail = strip_tags($_POST['txt_uname_email']);
   $upass = strip_tags($_POST['txt_password']);
 
-  if (login->doLogin($uname, umail, upass))
+  if (login->doLogin($uname, $umail, $upass))
   {
     $login->redirect('home.php');
   }
@@ -22,8 +22,8 @@ if(isset($_POST['btn-login']))
     $error = "<b><font color='red'> Wrong Login Details!</font></b>"
   }
 }
-
  ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,14 +42,6 @@ if(isset($_POST['btn-login']))
         <div class="signin-signup">
           <form action="#" class="sign-in-form">
             <h2 class="title">Sign in</h2>
-            <?php
-                if(isset(error)){
-                  ?>
-                  <i class="glyphicon glyphicon-warning-sign"></i>&nbsp; <?php echo $error; ?>!
-                  <?php
-                }
-             ?>
-
             <div class="input-field">
               <i class="fas fa-user"></i>
               <input type="text" name="txt_uname_email" placeholder="Username or email" required/>
